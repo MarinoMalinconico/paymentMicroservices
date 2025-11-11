@@ -1,0 +1,100 @@
+package com.companyName.paymentMicroservices.rest.payment.delegate.impl;
+
+import com.companyName.paymentMicroservices.repository.PaymentRepository;
+import com.companyName.paymentMicroservices.repository.entity.Payment;
+import com.companyName.paymentMicroservices.rest.payment.delegate.PaymentDetailDelegate;
+import com.companyName.paymentMicroservices.rest.payment.model.request.AddPaymentDetailRequest;
+import com.companyName.paymentMicroservices.rest.payment.model.response.PaymentDetailResponse;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+@Slf4j
+public class PaymentDetailDelegateImpl implements PaymentDetailDelegate {
+
+    @Autowired
+    PaymentRepository repository;
+
+    @Override
+    public List<PaymentDetailResponse> getPaymentDetail(String FkUser) {
+        log.debug("Into getPaymentDetail delegate with PathParameter [{}]", FkUser);
+
+        List<Payment> dbResult = repository.getAllPaymentPerUser(FkUser);
+        List<PaymentDetailResponse> response = dbResultToDto(dbResult);
+
+        return response;
+    }
+
+    private List<PaymentDetailResponse> dbResultToDto(List<Payment> dtos) {
+        List<PaymentDetailResponse> formattedDTOs = new ArrayList<>();
+        for (Payment dto : dtos) {
+            PaymentDetailResponse fileDto = new PaymentDetailResponse();
+            fileDto.setId(dto.getId());
+            fileDto.setName(dto.getName());
+            fileDto.setSurname(dto.getSurname());
+            fileDto.setEmail(dto.getEmail());
+            fileDto.setFkUser(dto.getFkUser());
+            fileDto.setBalance(dto.getBalance().setScale(2,BigDecimal.ROUND_HALF_DOWN));
+            formattedDTOs.add(fileDto);
+        }
+        return formattedDTOs;
+    }
+
+    @Override
+    public List<PaymentDetailResponse> getPaymentDetailJPA(String FkUser) {
+        log.debug("Into getPaymentDetail delegate with PathParameter [{}]", FkUser);
+
+        List<Payment> dbResult = repository.findByFkUser(FkUser);
+        List<PaymentDetailResponse> response = dbResultToDto(dbResult);
+
+        return response;
+    }
+
+    @Override
+    public List<PaymentDetailResponse> getAllJPA() {
+        log.debug("Into getPaymentDetail delegate with all");
+
+        List<Payment> dbResult = repository.findAll();
+        List<PaymentDetailResponse> response = dbResultToDto(dbResult);
+
+        return response;
+    }
+
+    @Override
+    public List<PaymentDetailResponse> addPaymentDetail(AddPaymentDetailRequest payment) {
+        log.debug("Into addPaymentDetail");
+
+        repository.save(new Payment(payment.getId(),payment.getName(), payment.getSurname(), payment.getEmail(), payment.getFkUser(), payment.getBalance()));
+
+        List<Payment> dbResult = repository.findByFkUser(payment.getFkUser());
+        List<PaymentDetailResponse> response = dbResultToDto(dbResult);
+
+        return response;
+    }
+
+    @Override
+    public List<PaymentDetailResponse> updatePaymentDetail(Payment payment) {
+        log.debug("Into updatePaymentDetail");
+
+        repository.save(new Payment(payment));
+
+        List<Payment> dbResult = repository.findByFkUser(payment.getFkUser());
+        List<PaymentDetailResponse> response = dbResultToDto(dbResult);
+
+        return response;
+    }
+
+    @Override
+    public boolean deletePaymentDetail(Payment payment) {
+        log.debug("Into deletePaymentDetail for [{} - {}]",payment.getFkUser(),payment.getId());
+
+        repository.delete(new Payment(payment));
+
+        return true;
+    }
+}
