@@ -34,11 +34,11 @@ public class PaymentDetailDelegateImpl implements PaymentDetailDelegate {
         for (Payment dto : dtos) {
             PaymentDetailResponse fileDto = new PaymentDetailResponse();
             fileDto.setId(dto.getId());
-            fileDto.setName(dto.getName());
-            fileDto.setSurname(dto.getSurname());
-            fileDto.setEmail(dto.getEmail());
+            fileDto.setTransaction_date(dto.getTransaction_date());
+            fileDto.setTransaction_description(dto.getTransaction_description());
+            fileDto.setCurrency(dto.getCurrency());
             fileDto.setFkUser(dto.getFkUser());
-            fileDto.setBalance(dto.getBalance().setScale(2,BigDecimal.ROUND_HALF_DOWN));
+            fileDto.setAmount(dto.getAmount().setScale(2,BigDecimal.ROUND_HALF_DOWN));
             formattedDTOs.add(fileDto);
         }
         return formattedDTOs;
@@ -68,7 +68,7 @@ public class PaymentDetailDelegateImpl implements PaymentDetailDelegate {
     public List<PaymentDetailResponse> addPaymentDetail(Payment payment) {
         log.debug("Into addPaymentDetail");
 
-        repository.save(new Payment(payment.getId(),payment.getName(), payment.getSurname(), payment.getEmail(), payment.getFkUser(), payment.getBalance()));
+        repository.save(new Payment(payment.getId(),payment.getTransaction_date(), payment.getTransaction_description(), payment.getFkUser(), payment.getAmount(), payment.getCurrency()));
 
         List<Payment> dbResult = repository.findByFkUser(payment.getFkUser());
         List<PaymentDetailResponse> response = dbResultToDto(dbResult);

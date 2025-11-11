@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Entity
 @Table(name="payments")
@@ -23,32 +24,32 @@ public class Payment {
     @Setter
     private String id;
 
-    @Column(name="NAME")
+    @Column(name="TRANSACTION_DATE")
     @Getter @Setter
-    private String name;
+    private Date transaction_date;
 
-    @Column(name="SURNAME")
+    @Column(name="TRANSACTION_DESCRIPTION")
     @Getter @Setter
-    private String surname;
-
-    @Column(name="EMAIL")
-    @Getter @Setter
-    private String email;
+    private String transaction_description;
 
     @Column(name="FK_USER")
     @Getter @Setter
     private String fkUser;
 
-    @Column(name="BALANCE")
+    @Column(name="AMOUNT")
     @Getter @Setter
-    private BigDecimal balance;
+    private BigDecimal amount;
+
+    @Column(name="CURRENCY")
+    @Getter @Setter
+    private String currency;
 
     public Payment(Payment account) { //serve a fare new Payment(account), altrimenti devi fare new Payment(account.getId,account.getName,....)
         this.id = account.getId();
-        this.name = account.getName();
-        this.surname = account.getSurname();
-        this.email = account.getEmail();
+        this.transaction_date = account.getTransaction_date();
+        this.transaction_description = account.getTransaction_description();
         this.fkUser = account.getFkUser();
-        this.balance = account.getBalance();
+        this.amount = account.getAmount();
+        this.currency = account.getCurrency();
     }
 }

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,17 +17,17 @@ public class PaymentDetailResponse {
     private String id;
 
     @Getter @Setter
-    private String name;
+    private Date transaction_date;
 
     @Getter @Setter
-    private String surname;
+    private String transaction_description;
 
-    @Getter @Setter
-    private String email;
-    
     @Getter @Setter
     private String fkUser;
 
     @Getter @Setter
-    private BigDecimal balance;
+    private BigDecimal amount;
+
+    @Getter @Setter
+    private String currency;
 }
