@@ -2,7 +2,6 @@ package com.companyName.paymentMicroservices.rest.payment.delegate;
 
 
 import com.companyName.paymentMicroservices.repository.entity.Payment;
-import com.companyName.paymentMicroservices.rest.payment.model.request.AddPaymentDetailRequest;
 import com.companyName.paymentMicroservices.rest.payment.model.response.PaymentDetailResponse;
 
 import java.security.InvalidParameterException;
@@ -13,7 +12,7 @@ public interface PaymentDetailDelegate {
     List<PaymentDetailResponse> getPaymentDetail(String FkUser) throws InvalidParameterException ;
     List<PaymentDetailResponse> getPaymentDetailJPA(String FkUser) throws InvalidParameterException ;
     List<PaymentDetailResponse> getAllJPA() throws InvalidParameterException ;
-    List<PaymentDetailResponse> addPaymentDetail(AddPaymentDetailRequest payment) throws InvalidParameterException ;
+    List<PaymentDetailResponse> addPaymentDetail(Payment payment) throws InvalidParameterException ;
     List<PaymentDetailResponse> updatePaymentDetail(Payment payment) throws InvalidParameterException ;
     boolean deletePaymentDetail(Payment payment) throws InvalidParameterException ;
 }

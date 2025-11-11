@@ -3,7 +3,6 @@ package com.companyName.paymentMicroservices.rest.payment.delegate.impl;
 import com.companyName.paymentMicroservices.repository.PaymentRepository;
 import com.companyName.paymentMicroservices.repository.entity.Payment;
 import com.companyName.paymentMicroservices.rest.payment.delegate.PaymentDetailDelegate;
-import com.companyName.paymentMicroservices.rest.payment.model.request.AddPaymentDetailRequest;
 import com.companyName.paymentMicroservices.rest.payment.model.response.PaymentDetailResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +65,7 @@ public class PaymentDetailDelegateImpl implements PaymentDetailDelegate {
     }
 
     @Override
-    public List<PaymentDetailResponse> addPaymentDetail(AddPaymentDetailRequest payment) {
+    public List<PaymentDetailResponse> addPaymentDetail(Payment payment) {
         log.debug("Into addPaymentDetail");
 
         repository.save(new Payment(payment.getId(),payment.getName(), payment.getSurname(), payment.getEmail(), payment.getFkUser(), payment.getBalance()));

@@ -5,7 +5,6 @@ import com.companyName.paymentMicroservices.repository.entity.Payment;
 import com.companyName.paymentMicroservices.rest.payment.delegate.PaymentDetailDelegate;
 import com.companyName.paymentMicroservices.rest.payment.exceptions.PaymentDetailException;
 import com.companyName.paymentMicroservices.rest.payment.model.request.PaymentDetailRequest;
-import com.companyName.paymentMicroservices.rest.payment.model.request.AddPaymentDetailRequest;
 import com.companyName.paymentMicroservices.rest.payment.model.response.PaymentDetailResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -159,7 +158,7 @@ public class PaymentDetailController {
     @RequestMapping(value = "/AddPayment",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody ResponseEntity<BasicResponse<List<PaymentDetailResponse>>> addPayment(@RequestBody AddPaymentDetailRequest payment) throws InvalidParameterException {
+    public @ResponseBody ResponseEntity<BasicResponse<List<PaymentDetailResponse>>> addPayment(@RequestBody Payment payment) throws InvalidParameterException {
 
         log.info("Entering in add payment of [{}]", payment.getFkUser());
 
