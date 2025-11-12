@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -26,7 +27,7 @@ public class Payment {
 
     @Column(name="TRANSACTION_DATE")
     @Getter @Setter
-    private Date transaction_date;
+    private LocalDate transaction_date; //YYYY-mm-dd 2025-09-30
 
     @Column(name="TRANSACTION_DESCRIPTION")
     @Getter @Setter

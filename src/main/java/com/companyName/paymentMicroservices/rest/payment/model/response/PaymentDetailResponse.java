@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -17,7 +18,7 @@ public class PaymentDetailResponse {
     private String id;
 
     @Getter @Setter
-    private Date transaction_date;
+    private LocalDate transaction_date;
 
     @Getter @Setter
     private String transaction_description;
