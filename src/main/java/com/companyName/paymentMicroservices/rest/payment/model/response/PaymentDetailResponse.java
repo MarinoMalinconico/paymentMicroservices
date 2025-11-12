@@ -15,7 +15,7 @@ public class PaymentDetailResponse {
 
     @Getter
     @Setter
-    private String id;
+    private Long id;
 
     @Getter @Setter
     private LocalDate transaction_date;

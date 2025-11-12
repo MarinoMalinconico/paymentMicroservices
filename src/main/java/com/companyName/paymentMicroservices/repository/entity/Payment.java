@@ -1,9 +1,6 @@
 package com.companyName.paymentMicroservices.repository.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,10 +17,11 @@ import java.util.Date;
 public class Payment {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID")
     @Getter
     @Setter
-    private String id;
+    private Long id;
 
     @Column(name="TRANSACTION_DATE")
     @Getter @Setter
