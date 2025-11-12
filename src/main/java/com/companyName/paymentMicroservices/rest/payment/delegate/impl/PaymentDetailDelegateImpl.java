@@ -48,7 +48,7 @@ public class PaymentDetailDelegateImpl implements PaymentDetailDelegate {
     public List<PaymentDetailResponse> getPaymentDetailJPA(String FkUser) {
         log.debug("Into getPaymentDetail delegate with PathParameter [{}]", FkUser);
 
-        List<Payment> dbResult = repository.findByFkUser(FkUser);
+        List<Payment> dbResult = repository.findByfkUser(FkUser);
         List<PaymentDetailResponse> response = dbResultToDto(dbResult);
 
         return response;
@@ -70,7 +70,7 @@ public class PaymentDetailDelegateImpl implements PaymentDetailDelegate {
 
         repository.save(new Payment(payment.getId(),payment.getTransaction_date(), payment.getTransaction_description(), payment.getFkUser(), payment.getAmount(), payment.getCurrency()));
 
-        List<Payment> dbResult = repository.findByFkUser(payment.getFkUser());
+        List<Payment> dbResult = repository.findByfkUser(payment.getFkUser());
         List<PaymentDetailResponse> response = dbResultToDto(dbResult);
 
         return response;
@@ -82,7 +82,7 @@ public class PaymentDetailDelegateImpl implements PaymentDetailDelegate {
 
         repository.save(new Payment(payment));
 
-        List<Payment> dbResult = repository.findByFkUser(payment.getFkUser());
+        List<Payment> dbResult = repository.findByfkUser(payment.getFkUser());
         List<PaymentDetailResponse> response = dbResultToDto(dbResult);
 
         return response;

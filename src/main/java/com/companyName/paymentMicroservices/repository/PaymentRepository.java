@@ -11,7 +11,7 @@ public interface PaymentRepository extends JpaRepository<Payment, String> {
     @Query(value="SELECT * FROM payments WHERE FK_USER=:FkUser", nativeQuery = true)
     List<Payment> getAllPaymentPerUser(@Param("FkUser")String FkUser);
 
-    List<Payment> findByFkUser(@Param("FkUser")String FkUser);
+    List<Payment> findByfkUser(@Param("FkUser")String FkUser);
 
     List<Payment> findAll();
 
