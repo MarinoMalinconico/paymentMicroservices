@@ -2,6 +2,8 @@ package com.companyName.paymentMicroservices.rest.payment.delegate.impl;
 
 import com.companyName.paymentMicroservices.repository.PaymentRepository;
 import com.companyName.paymentMicroservices.repository.entity.Payment;
+import com.companyName.coreMicroservices.repository.PaymentRepository;
+import com.companyName.coreMicroservices.repository.entity.Payment;
 import com.companyName.paymentMicroservices.rest.payment.delegate.PaymentDetailDelegate;
 import com.companyName.paymentMicroservices.rest.payment.model.response.PaymentDetailResponse;
 import lombok.extern.slf4j.Slf4j;

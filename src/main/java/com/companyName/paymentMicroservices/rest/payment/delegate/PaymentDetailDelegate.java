@@ -1,7 +1,7 @@
 package com.companyName.paymentMicroservices.rest.payment.delegate;
 
 
-import com.companyName.paymentMicroservices.repository.entity.Payment;
+import com.companyName.coreMicroservices.repository.entity.Payment;
 import com.companyName.paymentMicroservices.rest.payment.model.response.PaymentDetailResponse;
 
 import java.security.InvalidParameterException;
