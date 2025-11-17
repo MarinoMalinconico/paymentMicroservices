@@ -252,4 +252,39 @@ public class PaymentDetailController {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(response);
     }
+
+    @RequestMapping(value = "/DeletePaymentByCf",
+            method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody ResponseEntity<BasicResponse<List<PaymentDetailResponse>>> deletePaymentByCf(@RequestBody Payment payment) throws InvalidParameterException {
+
+        log.info("Entering in payment delete of [{}]",payment.getFkUser());
+
+        boolean deleted=false;
+
+        List<PaymentDetailResponse> delegateResult = null;
+        BasicResponse<List<PaymentDetailResponse>> response = new BasicResponse<>();
+        try {
+            delegateResult= delegate.getPaymentDetailJPA(payment.getFkUser());
+            deleted=delegate.deletePaymentDetailByCf(payment);
+            if (!delegateResult.isEmpty() && delegateResult != null) {
+                response.setData(delegateResult);
+                //response.setTimestamp(fmt.format(new Date()));
+            } else {
+                //metti log "nessun dato trovato"
+            }
+            log.debug("result delegate.getPaymentDetail(payment) [{}]", response);
+        } catch (InvalidParameterException e) {
+            log.error("ERROR {}", e.getMessage(), e);
+            throw e;
+        } catch (Exception e) {
+            log.error("ERROR {}",e.getMessage(), e);
+        }
+        log.info(deleted ? "eseguita delete di {} - {}" : "errore nella delete di {}", payment.getFkUser(),payment.getId());
+
+        return ResponseEntity
+                .ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(response);
+    }
 }

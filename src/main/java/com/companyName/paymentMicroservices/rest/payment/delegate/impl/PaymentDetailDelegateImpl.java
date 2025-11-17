@@ -1,7 +1,5 @@
 package com.companyName.paymentMicroservices.rest.payment.delegate.impl;
 
-import com.companyName.paymentMicroservices.repository.PaymentRepository;
-import com.companyName.paymentMicroservices.repository.entity.Payment;
 import com.companyName.coreMicroservices.repository.PaymentRepository;
 import com.companyName.coreMicroservices.repository.entity.Payment;
 import com.companyName.paymentMicroservices.rest.payment.delegate.PaymentDetailDelegate;
@@ -95,6 +93,15 @@ public class PaymentDetailDelegateImpl implements PaymentDetailDelegate {
         log.debug("Into deletePaymentDetail for [{} - {}]",payment.getFkUser(),payment.getId());
 
         repository.delete(new Payment(payment));
+
+        return true;
+    }
+
+    @Override
+    public boolean deletePaymentDetailByCf(Payment payment) {
+        log.debug("Into deletePaymentDetail for [{} - {}]",payment.getFkUser(),payment.getId());
+
+        repository.deletepaymentByfkUser(payment.getFkUser());
 
         return true;
     }

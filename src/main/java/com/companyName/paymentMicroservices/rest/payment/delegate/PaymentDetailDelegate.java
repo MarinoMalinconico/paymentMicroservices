@@ -15,4 +15,5 @@ public interface PaymentDetailDelegate {
     List<PaymentDetailResponse> addPaymentDetail(Payment payment) throws InvalidParameterException ;
     List<PaymentDetailResponse> updatePaymentDetail(Payment payment) throws InvalidParameterException ;
     boolean deletePaymentDetail(Payment payment) throws InvalidParameterException ;
+    boolean deletePaymentDetailByCf(Payment payment) throws InvalidParameterException ;
 }

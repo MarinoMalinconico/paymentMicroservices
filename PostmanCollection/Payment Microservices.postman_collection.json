@@ -132,6 +132,29 @@
 					"response": []
 				},
 				{
+					"name": "DELETE deletePaymentDetailBasicResponseByCf",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n            \"fkUser\": \"CCGVNLSN87H13D761R\",\r\n            \"total\": 3000.03\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}DeletePaymentByCf",
+							"host": [
+								"{{baseURL}}DeletePaymentByCf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "READ JPA paymentDetailBasicResponse parameter",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
