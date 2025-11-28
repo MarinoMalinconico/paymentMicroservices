@@ -156,7 +156,7 @@ public class PaymentDetailController {
     }
 
     @RequestMapping(value = "/AddPayment",
-            method = RequestMethod.POST,
+            method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<BasicResponse<List<PaymentDetailResponse>>> addPayment(@RequestBody Payment payment) throws InvalidParameterException {
 
@@ -188,7 +188,7 @@ public class PaymentDetailController {
     }
 
     @RequestMapping(value = "/UpdatePayment",
-    method = RequestMethod.POST,
+    method = RequestMethod.PUT,
     produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<BasicResponse<List<PaymentDetailResponse>>> updatePayment(@RequestBody Payment payment) throws InvalidParameterException {
 

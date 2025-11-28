@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -64,6 +65,7 @@ public class PaymentDetailDelegateImpl implements PaymentDetailDelegate {
         return response;
     }
 
+    //togliere, pagamento va aggiunto nell'invoice e collegato
     @Override
     public List<PaymentDetailResponse> addPaymentDetail(Payment payment) {
         log.debug("Into addPaymentDetail");
@@ -81,6 +83,15 @@ public class PaymentDetailDelegateImpl implements PaymentDetailDelegate {
         log.debug("Into updatePaymentDetail");
 
         repository.save(new Payment(payment));
+
+        Optional<Payment> currentPayment = repository.findById(payment.getId().toString());
+        //vecchio metodo
+        //currentPayment.get().setId(payment.getId());
+        //.
+        //.
+        //.
+        currentPayment.get().updatePayment(payment);
+        repository.save(currentPayment.get());
 
         List<Payment> dbResult = repository.findByfkUser(payment.getFkUser());
         List<PaymentDetailResponse> response = dbResultToDto(dbResult);
