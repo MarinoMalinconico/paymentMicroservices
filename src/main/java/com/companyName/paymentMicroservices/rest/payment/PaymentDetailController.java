@@ -155,37 +155,6 @@ public class PaymentDetailController {
                 .body(response);
     }
 
-    @RequestMapping(value = "/AddPayment",
-            method = RequestMethod.PUT,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody ResponseEntity<BasicResponse<List<PaymentDetailResponse>>> addPayment(@RequestBody Payment payment) throws InvalidParameterException {
-
-        log.info("Entering in add payment of [{}]", payment.getFkUser());
-
-        List<PaymentDetailResponse> delegateResult =  null;
-        BasicResponse<List<PaymentDetailResponse>> response = new BasicResponse<>();
-        try {
-            delegateResult= delegate.addPaymentDetail(payment);
-            if (!delegateResult.isEmpty() && delegateResult!=null){
-                response.setData(delegateResult);
-                //response.setTimestamp(fmt.format(new Date()));
-            } else {
-                //metti log "nessun dato trovato"
-            }
-            log.debug("result delegate.getPaymentDetail(payment) [{}]", response);
-        } catch (InvalidParameterException  e){
-            log.error("ERROR {} ", e.getMessage(), e);
-            throw e;
-        } catch (Exception e) {
-            log.error("ERROR {} ", e.getMessage(), e);
-
-        }
-
-        return ResponseEntity
-                .ok()
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(response);
-    }
 
     @RequestMapping(value = "/UpdatePayment",
     method = RequestMethod.PUT,

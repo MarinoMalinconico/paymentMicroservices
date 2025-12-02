@@ -12,7 +12,6 @@ public interface PaymentDetailDelegate {
     List<PaymentDetailResponse> getPaymentDetail(String FkUser) throws InvalidParameterException ;
     List<PaymentDetailResponse> getPaymentDetailJPA(String FkUser) throws InvalidParameterException ;
     List<PaymentDetailResponse> getAllJPA() throws InvalidParameterException ;
-    List<PaymentDetailResponse> addPaymentDetail(Payment payment) throws InvalidParameterException ;
     List<PaymentDetailResponse> updatePaymentDetail(Payment payment) throws InvalidParameterException ;
     boolean deletePaymentDetail(Payment payment) throws InvalidParameterException ;
     boolean deletePaymentDetailByCf(Payment payment) throws InvalidParameterException ;

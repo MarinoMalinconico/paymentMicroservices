@@ -65,31 +65,12 @@ public class PaymentDetailDelegateImpl implements PaymentDetailDelegate {
         return response;
     }
 
-    //togliere, pagamento va aggiunto nell'invoice e collegato
-    @Override
-    public List<PaymentDetailResponse> addPaymentDetail(Payment payment) {
-        log.debug("Into addPaymentDetail");
-
-        repository.save(new Payment(payment.getId(),payment.getTransaction_date(), payment.getTransaction_description(), payment.getFkUser(), payment.getAmount(), payment.getCurrency()));
-
-        List<Payment> dbResult = repository.findByfkUser(payment.getFkUser());
-        List<PaymentDetailResponse> response = dbResultToDto(dbResult);
-
-        return response;
-    }
 
     @Override
     public List<PaymentDetailResponse> updatePaymentDetail(Payment payment) {
         log.debug("Into updatePaymentDetail");
 
-        repository.save(new Payment(payment));
-
         Optional<Payment> currentPayment = repository.findById(payment.getId().toString());
-        //vecchio metodo
-        //currentPayment.get().setId(payment.getId());
-        //.
-        //.
-        //.
         currentPayment.get().updatePayment(payment);
         repository.save(currentPayment.get());
 
@@ -112,7 +93,16 @@ public class PaymentDetailDelegateImpl implements PaymentDetailDelegate {
     public boolean deletePaymentDetailByCf(Payment payment) {
         log.debug("Into deletePaymentDetail for [{} - {}]",payment.getFkUser(),payment.getId());
 
-        repository.deletepaymentByfkUser(payment.getFkUser());
+        List<Payment> dbResult = repository.findByfkUser(payment.getFkUser());
+
+        try {
+            for(Payment payToDelete:dbResult){
+                repository.deleteById(payToDelete.getId().toString());
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        //repository.deletepaymentByfkUser(payment.getFkUser());
 
         return true;
     }
