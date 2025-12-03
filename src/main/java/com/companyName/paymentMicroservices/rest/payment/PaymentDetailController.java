@@ -60,7 +60,7 @@ public class PaymentDetailController {
     @RequestMapping(value = "/paymentDetailBasicResponseParam",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody ResponseEntity<BasicResponse<List<PaymentDetailResponse>>> paymentDetailBasicResponse(@RequestParam String FkUser) throws InvalidParameterException {
+    public @ResponseBody ResponseEntity<BasicResponse<List<PaymentDetailResponse>>> paymentDetailBasicResponseByCfQuery(@RequestParam String FkUser) throws InvalidParameterException {
 
         log.info("Entering in paymentDetail service(param) - PathVariable: [{}]", FkUser);
 
@@ -93,7 +93,7 @@ public class PaymentDetailController {
     @RequestMapping(value = "/paymentDetailBasicResponseParam",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody ResponseEntity<BasicResponse<List<PaymentDetailResponse>>> paymentDetailBasicResponseGET(@RequestParam String FkUser) throws InvalidParameterException {
+    public @ResponseBody ResponseEntity<BasicResponse<List<PaymentDetailResponse>>> paymentDetailBasicResponseByCf(@RequestParam String FkUser) throws InvalidParameterException {
 
         log.info("Entering in paymentDetail service(param)(JPA) - PathVariable: [{}]", FkUser);
 
@@ -126,7 +126,7 @@ public class PaymentDetailController {
     @RequestMapping(value = "/paymentDetailBasicResponseParamAll",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody ResponseEntity<BasicResponse<List<PaymentDetailResponse>>> paymentDetailBasicResponseGET() throws InvalidParameterException {
+    public @ResponseBody ResponseEntity<BasicResponse<List<PaymentDetailResponse>>> paymentDetailBasicResponseGetAll() throws InvalidParameterException {
 
         log.info("Entering in paymentDetail service(param)(JPA)(all)");
 
