@@ -73,8 +73,6 @@ public class PaymentDetailDelegateImpl implements PaymentDetailDelegate {
         log.debug("Into updatePaymentDetail");
 
         Optional<Payment> currentPayment = repository.findById(newPayment.getId());
-        //currentPayment.get().updatePayment(payment);
-        //repository.save(currentPayment.get());
         currentPayment.ifPresent(payment -> {
             payment.setTransaction_date(newPayment.getTransaction_date() != null ? newPayment.getTransaction_date() : currentPayment.get().getTransaction_date());
             payment.setTransaction_description(newPayment.getTransaction_description() != null ? newPayment.getTransaction_description() : currentPayment.get().getTransaction_description());
