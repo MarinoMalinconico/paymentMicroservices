@@ -69,7 +69,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": \"25\",\r\n    \"transaction_description\":\"paola\"\r\n}",
+							"raw": "{\r\n    \"id\": \"5\",\r\n    \"transaction_description\":\"paol\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -82,7 +82,7 @@
 								"{{baseURL}}UpdatePayment"
 							]
 						},
-						"description": "esempio di uso, mettere id dell'elemento che si vuole modificare (obbligatorio), e inserire i campi da modificare, con i nuovi valori\n\n```\n{\n    \"id\": \"5\",\n    \"transaction_description\":\"paolo\"\n}\n\n ```"
+						"description": "esempio di uso, mettere id dell'elemento che si vuole modificare (obbligatorio), e inserire i campi da modificare, con i nuovi valori\n\n```\n{\n    \"id\": \"5\",\n    \"transaction_description\":\"paolo\"\n}\n\n ```\n\nstruttura con tutti gli attributi\n\n```\n{\n    \"id\": \"5\",\n    \"transaction_date\":\"2024-09-23\",\n    \"transaction_description\":\"paol\",\n    \"fkUser\": \"CCGVNLSN87H13D761R\",\n    \"amount\": 3000.03,\n    \"currency\":\"AED\"\n}\n\n ```"
 					},
 					"response": []
 				},
