@@ -4,6 +4,7 @@ import com.companyName.coreMicroservices.repository.PaymentRepository;
 import com.companyName.coreMicroservices.repository.entity.Payment;
 import com.companyName.paymentMicroservices.rest.payment.delegate.PaymentDetailDelegate;
 import com.companyName.paymentMicroservices.rest.payment.model.response.PaymentDetailResponse;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,7 +40,7 @@ public class PaymentDetailDelegateImpl implements PaymentDetailDelegate {
             fileDto.setTransaction_description(dto.getTransaction_description());
             fileDto.setCurrency(dto.getCurrency());
             fileDto.setFkUser(dto.getFkUser());
-            fileDto.setAmount(dto.getAmount().setScale(2,BigDecimal.ROUND_HALF_DOWN));
+            fileDto.setAmount(dto.getAmount() != null ? dto.getAmount().setScale(2,BigDecimal.ROUND_HALF_DOWN) : null);
             formattedDTOs.add(fileDto);
         }
         return formattedDTOs;
@@ -67,15 +68,23 @@ public class PaymentDetailDelegateImpl implements PaymentDetailDelegate {
 
 
     @Override
-    public List<PaymentDetailResponse> updatePaymentDetail(Payment payment) {
+    @Transactional
+    public List<PaymentDetailResponse> updatePaymentDetail(Payment newPayment) {
         log.debug("Into updatePaymentDetail");
 
-        Optional<Payment> currentPayment = repository.findById(payment.getId());
-        currentPayment.get().updatePayment(payment);
-        repository.save(currentPayment.get());
+        Optional<Payment> currentPayment = repository.findById(newPayment.getId());
+        //currentPayment.get().updatePayment(payment);
+        //repository.save(currentPayment.get());
+        currentPayment.ifPresent(payment -> {
+            payment.setTransaction_date(newPayment.getTransaction_date() != null ? newPayment.getTransaction_date() : currentPayment.get().getTransaction_date());
+            payment.setTransaction_description(newPayment.getTransaction_description() != null ? newPayment.getTransaction_description() : currentPayment.get().getTransaction_description());
+            payment.setFkUser(newPayment.getFkUser() != null ? newPayment.getFkUser() : currentPayment.get().getFkUser());
+            payment.setAmount(newPayment.getAmount() != null ? newPayment.getAmount() : currentPayment.get().getAmount());
+            payment.setCurrency(newPayment.getCurrency() != null ? newPayment.getCurrency() : currentPayment.get().getCurrency());
+        });
 
-        List<Payment> dbResult = repository.findByfkUser(payment.getFkUser());
-        List<PaymentDetailResponse> response = dbResultToDto(dbResult);
+        Optional<Payment> dbResult = repository.findById(currentPayment.get().getId());
+        List<PaymentDetailResponse> response = dbResultToDto(dbResult.stream().toList());
 
         return response;
     }
