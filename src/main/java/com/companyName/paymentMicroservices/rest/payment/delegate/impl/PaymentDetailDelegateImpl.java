@@ -70,7 +70,7 @@ public class PaymentDetailDelegateImpl implements PaymentDetailDelegate {
     public List<PaymentDetailResponse> updatePaymentDetail(Payment payment) {
         log.debug("Into updatePaymentDetail");
 
-        Optional<Payment> currentPayment = repository.findById(payment.getId().toString());
+        Optional<Payment> currentPayment = repository.findById(payment.getId());
         currentPayment.get().updatePayment(payment);
         repository.save(currentPayment.get());
 
@@ -97,7 +97,7 @@ public class PaymentDetailDelegateImpl implements PaymentDetailDelegate {
 
         try {
             for(Payment payToDelete:dbResult){
-                repository.deleteById(payToDelete.getId().toString());
+                repository.deleteById(payToDelete.getId());
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
