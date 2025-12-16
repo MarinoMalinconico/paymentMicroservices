@@ -1,6 +1,6 @@
 package com.companyName.paymentMicroservices.rest.payment;
 
-import com.companyName.paymentMicroservices.common.model.BasicResponse;
+import com.companyName.coreMicroservices.model.BasicResponse;
 import com.companyName.coreMicroservices.repository.entity.Payment;
 import com.companyName.paymentMicroservices.rest.payment.delegate.PaymentDetailDelegate;
 import com.companyName.paymentMicroservices.rest.payment.exceptions.PaymentDetailException;
