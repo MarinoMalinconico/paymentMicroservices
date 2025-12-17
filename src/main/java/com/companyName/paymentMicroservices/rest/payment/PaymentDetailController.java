@@ -33,7 +33,7 @@ public class PaymentDetailController {
         List<PaymentDetailResponse> delegateResult =  null;
         BasicResponse<List<PaymentDetailResponse>> response = new BasicResponse<>();
         try {
-            delegateResult= delegate.getPaymentDetail(payment.getCf());
+            delegateResult= delegate.getPaymentDetailQuery(payment.getCf());
             if (!delegateResult.isEmpty() && delegateResult!=null){
                 response.setData(delegateResult);
                 //response.setTimestamp(fmt.format(new Date()));
@@ -57,12 +57,45 @@ public class PaymentDetailController {
     }
 
     //con path parameter
-    @RequestMapping(value = "/paymentDetailBasicResponseParam",
+    @RequestMapping(value = "/paymentDetailBasicResponseByCfQuery",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<BasicResponse<List<PaymentDetailResponse>>> paymentDetailBasicResponseByCfQuery(@RequestParam String FkUser) throws InvalidParameterException {
 
         log.info("Entering in paymentDetail service(param) - PathVariable: [{}]", FkUser);
+
+        List<PaymentDetailResponse> delegateResult =  null;
+        BasicResponse<List<PaymentDetailResponse>> response = new BasicResponse<>();
+        try {
+            delegateResult= delegate.getPaymentDetailQuery(FkUser);
+            if (!delegateResult.isEmpty() && delegateResult!=null){
+                response.setData(delegateResult);
+                //response.setTimestamp(fmt.format(new Date()));
+            } else {
+                //metti log "nessun dato trovato"
+            }
+            log.debug("result delegate.getPaymentDetail(payment) [{}]", response);
+        } catch (InvalidParameterException  e){
+            log.error("ERROR {} ", e.getMessage(), e);
+            throw e;
+        } catch (Exception e) {
+            log.error("ERROR {} ", e.getMessage(), e);
+
+        }
+
+        return ResponseEntity
+                .ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(response);
+    }
+
+    //get con read e jpa
+    @RequestMapping(value = "/paymentDetailBasicResponseByCf",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody ResponseEntity<BasicResponse<List<PaymentDetailResponse>>> paymentDetailBasicResponseByCf(@RequestParam String FkUser) throws InvalidParameterException {
+
+        log.info("Entering in paymentDetail service(param)(JPA) - PathVariable: [{}]", FkUser);
 
         List<PaymentDetailResponse> delegateResult =  null;
         BasicResponse<List<PaymentDetailResponse>> response = new BasicResponse<>();
@@ -89,41 +122,8 @@ public class PaymentDetailController {
                 .body(response);
     }
 
-    //get con read e jpa
-    @RequestMapping(value = "/paymentDetailBasicResponseParam",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody ResponseEntity<BasicResponse<List<PaymentDetailResponse>>> paymentDetailBasicResponseByCf(@RequestParam String FkUser) throws InvalidParameterException {
-
-        log.info("Entering in paymentDetail service(param)(JPA) - PathVariable: [{}]", FkUser);
-
-        List<PaymentDetailResponse> delegateResult =  null;
-        BasicResponse<List<PaymentDetailResponse>> response = new BasicResponse<>();
-        try {
-            delegateResult= delegate.getPaymentDetailJPA(FkUser);
-            if (!delegateResult.isEmpty() && delegateResult!=null){
-                response.setData(delegateResult);
-                //response.setTimestamp(fmt.format(new Date()));
-            } else {
-                //metti log "nessun dato trovato"
-            }
-            log.debug("result delegate.getPaymentDetail(payment) [{}]", response);
-        } catch (InvalidParameterException  e){
-            log.error("ERROR {} ", e.getMessage(), e);
-            throw e;
-        } catch (Exception e) {
-            log.error("ERROR {} ", e.getMessage(), e);
-
-        }
-
-        return ResponseEntity
-                .ok()
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(response);
-    }
-
     //get all jpa
-    @RequestMapping(value = "/paymentDetailBasicResponseParamAll",
+    @RequestMapping(value = "/paymentDetailBasicResponseGetAll",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<BasicResponse<List<PaymentDetailResponse>>> paymentDetailBasicResponseGetAll() throws InvalidParameterException {
@@ -133,7 +133,7 @@ public class PaymentDetailController {
         List<PaymentDetailResponse> delegateResult =  null;
         BasicResponse<List<PaymentDetailResponse>> response = new BasicResponse<>();
         try {
-            delegateResult= delegate.getAllJPA();
+            delegateResult= delegate.getAllPaymentList();
             if (!delegateResult.isEmpty() && delegateResult!=null){
                 response.setData(delegateResult);
                 //response.setTimestamp(fmt.format(new Date()));
@@ -156,7 +156,7 @@ public class PaymentDetailController {
     }
 
 
-    @RequestMapping(value = "/UpdatePayment",
+    @RequestMapping(value = "/updatePayment",
     method = RequestMethod.PUT,
     produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<BasicResponse<List<PaymentDetailResponse>>> updatePayment(@RequestBody Payment payment) throws InvalidParameterException {
@@ -187,7 +187,7 @@ public class PaymentDetailController {
                 .body(response);
     }
 
-    @RequestMapping(value = "/DeletePayment",
+    @RequestMapping(value = "/deletePayment",
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<BasicResponse<List<PaymentDetailResponse>>> deletePayment(@RequestBody Payment payment) throws InvalidParameterException {
@@ -199,7 +199,7 @@ public class PaymentDetailController {
         List<PaymentDetailResponse> delegateResult = null;
         BasicResponse<List<PaymentDetailResponse>> response = new BasicResponse<>();
         try {
-            delegateResult= delegate.getPaymentDetailJPA(payment.getFkUser());
+            delegateResult= delegate.getPaymentDetail(payment.getFkUser());
             deleted=delegate.deletePaymentDetail(payment);
             if (!delegateResult.isEmpty() && delegateResult != null) {
                 response.setData(delegateResult);
@@ -222,7 +222,7 @@ public class PaymentDetailController {
                 .body(response);
     }
 
-    @RequestMapping(value = "/DeletePaymentByCf",
+    @RequestMapping(value = "/deletePaymentByCf",
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<BasicResponse<List<PaymentDetailResponse>>> deletePaymentByCf(@RequestBody Payment payment) throws InvalidParameterException {
@@ -234,7 +234,7 @@ public class PaymentDetailController {
         List<PaymentDetailResponse> delegateResult = null;
         BasicResponse<List<PaymentDetailResponse>> response = new BasicResponse<>();
         try {
-            delegateResult= delegate.getPaymentDetailJPA(payment.getFkUser());
+            delegateResult= delegate.getPaymentDetail(payment.getFkUser());
             deleted=delegate.deletePaymentDetailByCf(payment);
             if (!delegateResult.isEmpty() && delegateResult != null) {
                 response.setData(delegateResult);

@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface PaymentDetailDelegate {
 
+    List<PaymentDetailResponse> getPaymentDetailQuery(String FkUser) throws InvalidParameterException ;
     List<PaymentDetailResponse> getPaymentDetail(String FkUser) throws InvalidParameterException ;
-    List<PaymentDetailResponse> getPaymentDetailJPA(String FkUser) throws InvalidParameterException ;
-    List<PaymentDetailResponse> getAllJPA() throws InvalidParameterException ;
+    List<PaymentDetailResponse> getAllPaymentList() throws InvalidParameterException ;
     List<PaymentDetailResponse> updatePaymentDetail(Payment payment) throws InvalidParameterException ;
     boolean deletePaymentDetail(Payment payment) throws InvalidParameterException ;
     boolean deletePaymentDetailByCf(Payment payment) throws InvalidParameterException ;

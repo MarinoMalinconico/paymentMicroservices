@@ -22,7 +22,7 @@ public class PaymentDetailDelegateImpl implements PaymentDetailDelegate {
     PaymentRepository repository;
 
     @Override
-    public List<PaymentDetailResponse> getPaymentDetail(String FkUser) {
+    public List<PaymentDetailResponse> getPaymentDetailQuery(String FkUser) {
         log.debug("Into getPaymentDetail delegate with PathParameter [{}]", FkUser);
 
         List<Payment> dbResult = repository.getAllPaymentPerUser(FkUser);
@@ -47,7 +47,7 @@ public class PaymentDetailDelegateImpl implements PaymentDetailDelegate {
     }
 
     @Override
-    public List<PaymentDetailResponse> getPaymentDetailJPA(String FkUser) {
+    public List<PaymentDetailResponse> getPaymentDetail(String FkUser) {
         log.debug("Into getPaymentDetail delegate with PathParameter [{}]", FkUser);
 
         List<Payment> dbResult = repository.findByfkUser(FkUser);
@@ -57,7 +57,7 @@ public class PaymentDetailDelegateImpl implements PaymentDetailDelegate {
     }
 
     @Override
-    public List<PaymentDetailResponse> getAllJPA() {
+    public List<PaymentDetailResponse> getAllPaymentList() {
         log.debug("Into getPaymentDetail delegate with all");
 
         List<Payment> dbResult = repository.findAll();
